@@ -12,3 +12,10 @@ from surprise import KNNBaseline
 from surprise.model_selection import train_test_split
 from surprise.model_selection import LeaveOneOut
 from RecommenderMetrics import RecommenderMetrics
+
+
+ml = MovieLens()
+
+data = ml.loadMovieLensLatestSmall()
+
+rankings = ml.getPopularityRanks()
