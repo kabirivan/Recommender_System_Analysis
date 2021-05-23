@@ -16,6 +16,15 @@ from RecommenderMetrics import RecommenderMetrics
 
 ml = MovieLens()
 
+#Carga dataset
 data = ml.loadMovieLensLatestSmall()
 
+#Peliculas mas votadas -> Sirve para calcular Novedad
 rankings = ml.getPopularityRanks()
+
+
+# Similitud entre items -> Sirve para calcular Diversidad
+fullTrainSet = data.build_full_trainset()
+sim_options = {'name': 'pearson_baseline', 'user_based': False}   # compute  similarities between items
+simsAlgo = KNNBaseline(sim_options=sim_options)
+simsAlgo.fit(fullTrainSet)
