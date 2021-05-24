@@ -35,3 +35,13 @@ random.seed(0)
 
 # Evaluador de algoritmos
 evaluator = Evaluator(evaluationData, rankings)
+
+
+# SVD recommender
+SVDAlgorithm = SVD(random_state=10)
+evaluator.AddAlgorithm(SVDAlgorithm, "SVD")
+
+
+# Just make random recommendations
+Random = NormalPredictor()
+evaluator.AddAlgorithm(Random, "Random")
