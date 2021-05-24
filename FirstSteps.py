@@ -53,7 +53,6 @@ LOOCV = LeaveOneOut(n_splits=1, random_state=1)
 rank = 0
 for trainSet, testSet in LOOCV.split(data):
     
-    print(len(testSet))
     # Entrenar modelo sin ratings excluidos
     algo.fit(trainSet)
     
@@ -70,11 +69,15 @@ for trainSet, testSet in LOOCV.split(data):
     
     # Revisar con que frecuencia se recomienda una pelicula que el usuario califico
     print("\nHit Rate: ", RecommenderMetrics.HitRate(topNPredicted, leftOutPredictions))
-    rank += 1
-    print(rank)
     
     
+    print("\nrHR (Hit Rate by Rating value): ")
+    RecommenderMetrics.RatingHitRate(topNPredicted, leftOutPredictions)
     
-    
-    
+     # Revisa que tan amenudo recomendamos una pelicula que al usuario le gusto
+    print("\ncHR (Cumulative Hit Rate, rating >= 4): ", RecommenderMetrics.CumulativeHitRate(topNPredicted, leftOutPredictions, 4.0))
+
+     # Calculo ARHR
+    print("\nARHR (Average Reciprocal Hit Rank): ", RecommenderMetrics.AverageReciprocalHitRank(topNPredicted, leftOutPredictions))
+
     
