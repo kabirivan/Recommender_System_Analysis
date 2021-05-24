@@ -45,3 +45,6 @@ evaluator.AddAlgorithm(SVDAlgorithm, "SVD")
 # Just make random recommendations
 Random = NormalPredictor()
 evaluator.AddAlgorithm(Random, "Random")
+
+
+evaluator.Evaluate(True)
