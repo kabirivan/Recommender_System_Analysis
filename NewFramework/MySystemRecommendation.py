@@ -27,3 +27,11 @@ def LoadMovieLensData():
 
 np.random.seed(0)
 random.seed(0)
+
+
+# Datos generales para el calculo de la eficiencia de los algoritmos de recomendacion
+(evaluationData, rankings) = LoadMovieLensData()
+
+
+# Evaluador de algoritmos
+evaluator = Evaluator(evaluationData, rankings)
