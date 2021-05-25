@@ -25,7 +25,6 @@ rankings = ml.getPopularityRanks()
 
 # Similitud entre items -> Sirve para calcular Diversidad
 fullTrainSet = data.build_full_trainset()
-bigTestSet1 = fullTrainSet.build_anti_testset()
 sim_options = {'name': 'pearson_baseline', 'user_based': False}   # compute  similarities between items
 simsAlgo = KNNBaseline(sim_options=sim_options)
 simsAlgo.fit(fullTrainSet)
@@ -80,4 +79,20 @@ for trainSet, testSet in LOOCV.split(data):
      # Calculo ARHR
     print("\nARHR (Average Reciprocal Hit Rank): ", RecommenderMetrics.AverageReciprocalHitRank(topNPredicted, leftOutPredictions))
 
-    
+# Calculo de recomendaciones sin ninguna restriccion
+algo.fit(fullTrainSet)
+bigTestSet = fullTrainSet.build_anti_testset()
+allPredictions = algo.test(bigTestSet)
+topNPredicted = RecommenderMetrics.GetTopN(allPredictions, n=10)
+
+# Covertura minima con una calificacion prevista de 4.0
+print("\nUser coverage: ", RecommenderMetrics.UserCoverage(topNPredicted, fullTrainSet.n_users, ratingThreshold=4.0))
+
+# Diversidad en las recomendaciones
+print("\nDiversity: ", RecommenderMetrics.Diversity(topNPredicted, simsAlgo))
+
+# Novedad (Promedio del rango de pularidad de las recomendaciones):
+print("\nNovelty (average popularity rank): ", RecommenderMetrics.Novelty(topNPredicted, rankings))
+
+
+
