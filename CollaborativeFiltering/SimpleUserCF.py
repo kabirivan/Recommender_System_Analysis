@@ -62,7 +62,7 @@ for itemID, ratingSum in sorted(candidates.items(), key=itemgetter(1), reverse=T
         print(ml.getMovieName(int(movieID)), ratingSum)
         pos += 1
         if (pos > 10):
-            break
+            break 
 
 
 
